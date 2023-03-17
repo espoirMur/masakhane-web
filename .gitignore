@@ -110,3 +110,4 @@ onnx/
 *.onnx
 model_store/
 logs/
+triton_model_repository/**/*.onnx
