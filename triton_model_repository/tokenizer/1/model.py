@@ -14,8 +14,8 @@ class TritonPythonModel:
         :param args: arguments from Triton config file
         """
         # more variables in https://github.com/triton-inference-server/python_backend/blob/main/src/python.cc
-        path: str = Path(__file__).parent
-        print("the model path is: ", path) # need to fix this
+        path: str = Path(__file__).parent  # should be the path to the tokenizer folder
+        print("the model path is: ", path)  # need to fix this
         self.tokenizer = AutoTokenizer.from_pretrained(path)
 
     def execute(self, requests) -> "List[List[pb_utils.Tensor]]":
