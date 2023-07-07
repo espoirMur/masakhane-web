@@ -1,7 +1,5 @@
-name: "encoder"
-backend: "onnxruntime"
-platform: "onnxruntime_onnx"
-default_model_filename: "encoder_model_quantized.onnx"
+name: "encoder_decoder_model"
+backend: "python"
 max_batch_size: 0
 input [
   {
@@ -17,9 +15,9 @@ input [
 ]
 output [
     {
-    name: "last_hidden_state"
+    name: "generated_indices"
     data_type: TYPE_FP32
-    dims: [ -1, -1, 1024 ]
+    dims: [ -1, -1 ]
   }
 ]
 

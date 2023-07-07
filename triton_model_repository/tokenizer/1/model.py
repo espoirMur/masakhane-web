@@ -1,9 +1,9 @@
-import os
 from typing import Dict, List
 import numpy as np
 import triton_python_backend_utils as pb_utils
 from pathlib import Path
 from transformers import AutoTokenizer, PreTrainedTokenizer, TensorType
+
 
 class TritonPythonModel:
     tokenizer: PreTrainedTokenizer
@@ -14,9 +14,9 @@ class TritonPythonModel:
         :param args: arguments from Triton config file
         """
         # more variables in https://github.com/triton-inference-server/python_backend/blob/main/src/python.cc
-        path: str = Path(__file__).parent  # should be the path to the tokenizer folder
-        print("the model path is: ", path)  # need to fix this
-        self.tokenizer = AutoTokenizer.from_pretrained(path)
+        path: str = Path(__file__).parent 
+        tokenizer_folder = path.joinpath("tokenizer_files")
+        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_folder)
 
     def execute(self, requests) -> "List[List[pb_utils.Tensor]]":
         """
