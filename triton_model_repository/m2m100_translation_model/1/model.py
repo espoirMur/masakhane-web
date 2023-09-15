@@ -15,7 +15,7 @@ class TritonPythonModel:
         :param args: arguments from Triton config file
         """
         current_path: str = Path(args["model_repository"]).parent.absolute()
-        model_path = current_path.joinpath("encoder_decoder_model", "1", f"m2m100_418M_en_swa_rel_news_quantized")
+        model_path = current_path.joinpath("m2m100_translation_model", "1", f"m2m100_418M_en_swa_rel_news_quantized")
         self.device = "cpu" if args["model_instance_kind"] == "CPU" else "cuda"
         # more variables in https://github.com/triton-inference-server/python_backend/blob/main/src/python.cc
         self.model = ORTModelForSeq2SeqLM.from_pretrained(model_path,
@@ -23,6 +23,7 @@ class TritonPythonModel:
                                                           encoder_file_name="encoder_model_quantized.onnx")
         if self.device == "cuda":
             self.model = self.model.cuda()
+        print("TritonPythonModel initialized")
 
     def execute(self, requests) -> "List[List[pb_utils.Tensor]]":
         """
@@ -48,3 +49,10 @@ class TritonPythonModel:
             responses.append(tensor_output)
         responses = [pb_utils.InferenceResponse(output_tensors=responses)]
         return responses
+    
+    def finalize(self):
+        """`finalize` is called only once when the model is being unloaded.
+        Implementing `finalize` function is optional. This function allows
+        the model to perform any necessary clean ups before exit.
+        """
+        print('Cleaning up...')

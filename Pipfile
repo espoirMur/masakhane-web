@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+transformers = "==4.30.2"
+onnx = "==1.14.0"
+onnxruntime = "==1.15.1"
+onnxruntime-tools = "==1.7.0"
+torch = "==2.0.0"
+sentencepiece = "==0.1.99"
+optimum = "==1.9.0"
+tritonclient = "*"
+
+[dev-packages]
+ipykernel = "*"
+
+[requires]
+python_version = "3.9"
