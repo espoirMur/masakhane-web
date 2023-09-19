@@ -1,0 +1,10 @@
+apiVersion: "serving.kserve.io/v1alpha1"
+kind: "TrainedModel"
+metadata:
+  name: "mm2m100-translation-trained-model"
+spec:
+  inferenceService: m2m100-translation-inference-service
+  model:
+    framework: python
+    storageUri: gs://masakhane-models/triton_model_repository/m2m100_translation_model
+    memory: 2Gi

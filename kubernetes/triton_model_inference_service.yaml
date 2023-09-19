@@ -1,0 +1,25 @@
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "m2m100-translation-inference-service"
+spec:
+  predictor:
+    volumes:
+    - name: dshm
+      emptyDir:
+        medium: Memory
+        sizeLimit: "1024Mi" # this is to solve the issue with the shared memory
+    triton:
+      image: espymur/triton-onnx:dev
+      volumeMounts:
+      - mountPath: /dev/shm
+        name: dshm
+        readOnly: false
+      resources:
+        limits:
+          memory: "4Gi"
+          cpu: "2"
+        requests:
+          memory: "2Gi"
+          cpu: "1"
+      storageUri: "gs://masakhane-models/triton_model_repository"

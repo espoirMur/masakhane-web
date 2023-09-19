@@ -15,7 +15,7 @@ class TritonPythonModel:
         :param args: arguments from Triton config file
         """
         current_path: str = Path(args["model_repository"]).parent.absolute()
-        model_path = current_path.joinpath("m2m100_translation_model", "1", f"m2m100_418M_en_swa_rel_news_quantized")
+        model_path = current_path.joinpath("m2m100_translation_model", "1", "m2m100_418M_en_swa_rel_news_quantized")
         self.device = "cpu" if args["model_instance_kind"] == "CPU" else "cuda"
         # more variables in https://github.com/triton-inference-server/python_backend/blob/main/src/python.cc
         self.model = ORTModelForSeq2SeqLM.from_pretrained(model_path,
