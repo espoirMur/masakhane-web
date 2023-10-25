@@ -8,7 +8,7 @@ spec:
     - name: dshm
       emptyDir:
         medium: Memory
-        sizeLimit: "1024Mi" # this is to solve the issue with the shared memory
+        sizeLimit: "2048Mi" # this is to solve the issue with the shared memory
     triton:
       image: espymur/triton-onnx:dev
       volumeMounts:
@@ -16,9 +16,6 @@ spec:
         name: dshm
         readOnly: false
       resources:
-        limits:
-          memory: "4Gi"
-          cpu: "2"
         requests:
           memory: "2Gi"
           cpu: "1"
